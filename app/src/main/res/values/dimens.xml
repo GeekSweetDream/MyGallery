@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!-- Spacing -->
+    <dimen name="small_spacing_16dp">16dp</dimen>
+
+
+    <!-- Size -->
+    <dimen name="small_size_36dp">36dp</dimen>
+    <dimen name="middle_size_48dp">48dp</dimen>
+
+
+    <!-- Fonts size -->
+    <dimen name="toolbar_size_font">22dp</dimen>
+</resources>
