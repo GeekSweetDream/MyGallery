@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Network {
 
     private static Url urlIntance;
-    private final static  String YANDEX_TOKEN = "AQAAAAADworZAADLWyEX80SXnkjCmRCa7zOEKzA";
+    private final static  String YANDEX_TOKEN = "Тут был токен :3";
 
     private static Gson createGson(){
         GsonBuilder gsonBuilder = new GsonBuilder();
