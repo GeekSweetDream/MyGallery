@@ -17,6 +17,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.dreamsofpines.mygallery.R;
 import com.dreamsofpines.mygallery.network.Network;
+import com.dreamsofpines.mygallery.ui.custom.view.MyToolbar;
 import com.dreamsofpines.mygallery.ui.interfaces.ImageItem;
 import com.dreamsofpines.mygallery.util.ImageUtils;
 import com.github.chrisbanes.photoview.PhotoView;
@@ -28,6 +29,8 @@ public class GalleryItemFragment extends Fragment {
     private RotateLoading mRotateLoading;
     private View view;
     private OnChangeBackgroundActiveListener lisener;
+    private MyToolbar mMyToolbar;
+    private int id;
 
     public interface OnChangeBackgroundActiveListener{
         void change();
@@ -80,6 +83,11 @@ public class GalleryItemFragment extends Fragment {
         }).into(mImageView);
         mImageView.setOnClickListener(view1 -> lisener.change());
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     private void bindView(){

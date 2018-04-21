@@ -20,7 +20,7 @@ public class ImageUtils {
                 imageView.buildDrawingCache();
                 Bitmap bitmap = imageView.getDrawingCache();
                 bluring(bitmap,imageView);
-                return true;
+                return false;
             }
         });
     }
