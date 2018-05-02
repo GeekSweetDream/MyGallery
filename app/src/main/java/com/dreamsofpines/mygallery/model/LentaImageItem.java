@@ -2,12 +2,15 @@ package com.dreamsofpines.mygallery.model;
 
 import android.app.Fragment;
 
+import com.dreamsofpines.mygallery.ui.adapter.delegate.LentaItemDelegate;
 import com.dreamsofpines.mygallery.ui.interfaces.ImageItem;
+import com.dreamsofpines.mygallery.ui.interfaces.Notify;
 import com.dreamsofpines.mygallery.ui.interfaces.mItemView;
 
 public class LentaImageItem extends Fragment implements mItemView,ImageItem {
 
     private String path;
+    private String name;
     private String preview;
     private String Date;
     private boolean isSelect;
@@ -38,15 +41,26 @@ public class LentaImageItem extends Fragment implements mItemView,ImageItem {
         return Date;
     }
 
-    public void setDate(String date) {
+    public LentaImageItem setDate(String date) {
         Date = date;
+        return this;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public LentaImageItem setName(String name) {
+        this.name = name;
+        return this;
     }
 
     public boolean isSelect() {
         return isSelect;
     }
 
-    public void setSelect(boolean select) {
+    public LentaImageItem setSelect(boolean select) {
         isSelect = select;
+        return this;
     }
 }

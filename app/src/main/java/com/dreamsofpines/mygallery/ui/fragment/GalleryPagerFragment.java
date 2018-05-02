@@ -32,7 +32,10 @@ public class GalleryPagerFragment extends Fragment implements ViewPager.OnPageCh
     private PagerAdapter mPagerAdapter;
 
     private List<mItemView> list;
-    private  int COUNT_PAGE = 0;
+
+    private FragmentManager fm;
+
+    private int COUNT_PAGE = 0;
     private int currentPosition = 0;
 
     private int COLOR_BLACK;
@@ -48,7 +51,9 @@ public class GalleryPagerFragment extends Fragment implements ViewPager.OnPageCh
 
         mMyToolbar = (MyToolbar) view.findViewById(R.id.toolbar);
         mMyToolbar.initCounter(currentPosition+1,COUNT_PAGE);
-
+        mMyToolbar.setOnClickLeftButton(()-> {
+            if(fm != null) fm.popBackStack();
+        });
         mViewPager = (MyViewPager) view.findViewById(R.id.gallery_pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getChildFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);
@@ -56,6 +61,11 @@ public class GalleryPagerFragment extends Fragment implements ViewPager.OnPageCh
         mViewPager.addOnPageChangeListener(this);
 
         return view;
+    }
+
+    public GalleryPagerFragment setFragmentManager(FragmentManager fm){
+        this.fm = fm;
+        return this;
     }
 
     @Override
@@ -74,8 +84,6 @@ public class GalleryPagerFragment extends Fragment implements ViewPager.OnPageCh
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter  {
 
         private boolean isBackgroundActive = true;
-
-
 
         public ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm);
@@ -100,8 +108,6 @@ public class GalleryPagerFragment extends Fragment implements ViewPager.OnPageCh
         public int getCount() {
             return COUNT_PAGE;
         }
-
-
 
     }
 

@@ -17,8 +17,16 @@
         android:layout_width="@dimen/small_size_36dp"
         android:layout_height="@dimen/small_size_36dp"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/small_spacing_16dp"
-        android:background="@mipmap/ic_menu_black_48dp"/>
+        android:layout_marginLeft="@dimen/small_spacing_16dp"/>
+    <ImageView
+        android:id="@+id/right_but"
+        android:layout_width="@dimen/small_size_36dp"
+        android:layout_height="@dimen/small_size_36dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/small_spacing_16dp"
+        android:background="@mipmap/ic_airplanemode_active_black_48dp"
+        android:visibility="gone"/>
 
 
 </RelativeLayout>

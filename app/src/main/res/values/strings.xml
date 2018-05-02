@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">MyGallery</string>
-
+    <string name="menu_disable">Меню не доступно</string>
+    <string name="function_disable">Данная функция находится в разработке</string>
+    <string name="download_error">Не получилось загрузить новые фото</string>
 
 </resources>

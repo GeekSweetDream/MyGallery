@@ -29,26 +29,29 @@ public class PhotoItemUtilCalback extends DiffUtil.Callback {
 
     @Override
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        if(isLentaImageSmall(oldList.get(oldItemPosition))
-                && isLentaImageSmall(newList.get(newItemPosition))){
-            return true;
-        }
-        return false;
+        return isLentaImageSmall(oldList.get(oldItemPosition))
+                && isLentaImageSmall(newList.get(newItemPosition));
     }
 
 
     @Override
     public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-        if(((LentaImageItem) oldList.get(oldItemPosition)).getPath()
-                .equals(((LentaImageItem) newList.get(newItemPosition)).getPath())){
-            return true;
-        }
-        return false;
+        return equalsPath(oldItemPosition,newItemPosition)&&
+                equalsIsSelect(oldItemPosition, newItemPosition);
     }
 
     private static boolean isLentaImageSmall(mItemView view){
         return view instanceof LentaImageItem;
     }
 
+    private boolean equalsPath(int oldItemPosition, int newItemPosition){
+        return ((LentaImageItem) oldList.get(oldItemPosition)).getPath()
+                .equals(((LentaImageItem) newList.get(newItemPosition)).getPath());
+    }
+
+    private boolean equalsIsSelect(int oldItemPosition, int newItemPosition){
+        return ((LentaImageItem) oldList.get(oldItemPosition)).isSelect() &&
+                ((LentaImageItem) newList.get(newItemPosition)).isSelect();
+    }
 
 }

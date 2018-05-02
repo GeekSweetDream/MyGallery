@@ -14,9 +14,9 @@ import java.util.List;
 
 public class LentaMainAdapter extends RecyclerView.Adapter {
 
-    final int SMALL_IMAGE = 0;
-    final int BIG_IMAGE = 1;
-    final int LOAD_BUTTON = 2;
+    public final int SMALL_IMAGE = 0;
+    public final int BIG_IMAGE = 1;
+    public final int LOAD_BUTTON = 2;
 
 
     private AdapterDelegateManager<List<mItemView>> mListAdapterDelegateManager;
@@ -41,6 +41,7 @@ public class LentaMainAdapter extends RecyclerView.Adapter {
     public LentaMainAdapter(Activity activity){
         items = new ArrayList<>();
         addDelegate(activity);
+        setListeners();
     }
 
     public List<mItemView> getItems() {
@@ -54,13 +55,15 @@ public class LentaMainAdapter extends RecyclerView.Adapter {
     public LentaMainAdapter(Activity activity, List<mItemView> items){
         this.items = items;
         addDelegate(activity);
+        setListeners();
     }
 
     private void addDelegate(Activity activity){
         mListAdapterDelegateManager = new AdapterDelegateManager<>();
-        mListAdapterDelegateManager.addDelegate(SMALL_IMAGE, new LentaItemDelegate(activity).setListener((position)-> photoListener.OnClick(position)));
-        mListAdapterDelegateManager.addDelegate(LOAD_BUTTON, new LoadMoreDelegate(activity).setListener(()-> loadListener.load()));
+        mListAdapterDelegateManager.addDelegate(SMALL_IMAGE, new LentaItemDelegate(activity));
+        mListAdapterDelegateManager.addDelegate(LOAD_BUTTON, new LoadMoreDelegate(activity));
     }
+
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -80,5 +83,12 @@ public class LentaMainAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    private void setListeners(){
+        ((LentaItemDelegate)mListAdapterDelegateManager.getDelegateForViewType(SMALL_IMAGE))
+                .setListener(((position)->photoListener.OnClick(position)));
+        ((LoadMoreDelegate)mListAdapterDelegateManager.getDelegateForViewType(LOAD_BUTTON))
+                .setListener(()-> loadListener.load());
     }
 }

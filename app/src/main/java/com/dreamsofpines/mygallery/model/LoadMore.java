@@ -6,5 +6,4 @@ import com.dreamsofpines.mygallery.ui.interfaces.mItemView;
 
 public class LoadMore extends Fragment implements mItemView {
 
-
 }

@@ -16,8 +16,7 @@
         android:layout_width="@dimen/small_size_36dp"
         android:layout_height="@dimen/small_size_36dp"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/small_spacing_16dp"
-        android:background="@mipmap/ic_menu_black_48dp"/>
+        android:layout_marginLeft="@dimen/small_spacing_16dp"/>
 
 
 </RelativeLayout>

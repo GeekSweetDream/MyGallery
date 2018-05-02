@@ -56,7 +56,7 @@ public class LoadMoreDelegate extends AdapterDelegate<List<mItemView>> {
         public LoadMoreHolder(View itemView) {
             super(itemView);
             rotationLoad = itemView.findViewById(R.id.rotation_load);
-            rotationLoad.setLoadingColor(R.color.color_orange);
+            rotationLoad.setLoadingColor(itemView.getContext().getResources().getColor(R.color.color_orange));
         }
 
     }

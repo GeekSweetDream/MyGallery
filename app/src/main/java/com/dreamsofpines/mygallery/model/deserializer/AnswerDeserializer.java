@@ -27,6 +27,7 @@ public class AnswerDeserializer implements JsonDeserializer<Answer> {
             list.add(new LentaImageItem()
                     .setPath(getStringFromJsonElement(items.get(i).getAsJsonObject().get("file")))
                     .setPreview(getStringFromJsonElement(items.get(i).getAsJsonObject().get("preview")))
+                    .setName(getStringFromJsonElement(items.get(i).getAsJsonObject().get("name")))
             );
         }
         return new Answer().setList(list).setOffset(offset);

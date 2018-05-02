@@ -18,6 +18,7 @@ import com.dreamsofpines.mygallery.R;
 import com.dreamsofpines.mygallery.model.LentaImageItem;
 import com.dreamsofpines.mygallery.network.Network;
 import com.dreamsofpines.mygallery.ui.interfaces.mItemView;
+import com.dreamsofpines.mygallery.util.SaveImageUtils;
 import com.dreamsofpines.mygallery.util.ScreenUtils;
 
 import java.util.List;
@@ -59,11 +60,16 @@ public class LentaItemDelegate extends AdapterDelegate<List<mItemView>> {
         LentaSmallHolder lentaSmallHolder = (LentaSmallHolder) holder;
         LentaImageItem itemSmall = (LentaImageItem) items.get(position);
         Glide.with(mContext).load(Network.getUrlForLoadImage(itemSmall.getPreview())).into(lentaSmallHolder.mImageView);
-        lentaSmallHolder.itemView.setOnLongClickListener((view -> {
+        lentaSmallHolder.itemView.setOnLongClickListener((view) -> {
+            if(itemSmall.isSelect()){
+                SaveImageUtils.removeSelect(itemSmall);
+            }else{
+                SaveImageUtils.addSelect(itemSmall);
+            }
             itemSmall.setSelect(!itemSmall.isSelect());
             selectImage(lentaSmallHolder,itemSmall);
             return true;
-        }));
+        });
         lentaSmallHolder.itemView.setOnClickListener((view)->mListener.OnClick(position));
         selectImage(lentaSmallHolder,itemSmall);
         setImageSize(lentaSmallHolder);

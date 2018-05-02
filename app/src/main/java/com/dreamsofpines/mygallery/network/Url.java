@@ -10,9 +10,9 @@ import retrofit2.http.Query;
 public interface Url {
 
     String HOST = "https://cloud-api.yandex.net/v1/disk/resources/";
-    String GET_IMAGES = "files?fields=items.file%2Citems.preview%2Citems.created&media_type=image%20";
+    String GET_IMAGES = "files?fields=items.file%2Citems.name%2Citems.preview%2Citems.created&media_type=image%20";
 
-    @Headers({"Authorization:OAuth AQAAAAADworZAADLWyEX80SXnkjCmRCa7zOEKzA"})
+    @Headers({"Authorization:OAuth AQAAAAAmYFGaAADLW3lLUSFPmU0omVfULzOTssQ"})
     @GET(GET_IMAGES) Observable<Answer> images(@Query("limit") String limit, @Query("offset") String offset, @Query("preview_size") String size);
 
 

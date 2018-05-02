@@ -15,19 +15,32 @@ public class MyToolbar extends RelativeLayout {
     private View rootView;
     private TextView title;
     private ImageView leftBut;
+    private ImageView rightBut;
     private int design;
     private int quantityPhoto = 0;
     private int currentPhoto = 0;
-    private OnClickLeftButton listener;
+    private int selectPhoto = 0;
+    private OnClickLeftButton listenerLf;
+    private OnClickRightButton listenerRg;
     private boolean isDarkColor = false;
-
 
     public interface OnClickLeftButton {
         void onClick();
     }
 
-    public void setOnClickLeftButton(OnClickLeftButton listener){
-        this.listener = listener;
+    public interface OnClickRightButton{
+        void onClick();
+    }
+
+
+
+    public MyToolbar setOnClickLeftButton(OnClickLeftButton listener){
+        this.listenerLf = listener;
+        return this;
+    }
+    public MyToolbar setOnClickRightButton(OnClickRightButton listener){
+        this.listenerRg = listener;
+        return this;
     }
 
     public MyToolbar(Context context) {
@@ -53,22 +66,38 @@ public class MyToolbar extends RelativeLayout {
     }
 
     private void init(Context context) {
-        bindView(context);
+        rootView = bindView(context);
         setListeners();
         updateTitle();
         setViewButton();
         setBackgroundColor(getResources().getColor(R.color.color_white));
     }
 
-    private void bindView(Context context){
-        rootView = inflate(context, (design == 0 ? R.layout.main_toolbar : R.layout.gallery_toolbar), this);
-        leftBut = (ImageView) rootView.findViewById(R.id.left_but);
-        title = (TextView) rootView.findViewById(R.id.title_toolbar);
+    private View bindView(Context context){
+        View view = inflate(context, getLayoutToolbar(), this);
+        leftBut = (ImageView) view.findViewById(R.id.left_but);
+        title = (TextView) view.findViewById(R.id.title_toolbar);
+        if(design == 2) rightBut = (ImageView) view.findViewById(R.id.right_but);
+        return view;
+    }
+
+    private int getLayoutToolbar(){
+        switch (design){
+            case 0: return R.layout.main_toolbar;
+            case 1: return R.layout.gallery_toolbar;
+            case 2: return R.layout.main_toolbar;
+        }
+        return 0;
     }
 
     private void setListeners(){
         leftBut.setOnClickListener((view)->{
-            if(listener!=null) listener.onClick();});
+            if(listenerLf!=null) listenerLf.onClick();
+        });
+
+        if(design == 2) rightBut.setOnClickListener((view)->{
+            if(listenerRg != null) listenerRg.onClick();
+        });
     }
 
     public void initCounter(int currentPhoto, int quantityPhoto){
@@ -87,11 +116,23 @@ public class MyToolbar extends RelativeLayout {
     }
 
     private String getTitleRange(){
-        if(design == 0){
-            return "Фотограм";
-        }else{
-            return String.valueOf(currentPhoto) + " из " + String.valueOf(quantityPhoto);
+        String answer = "";
+        switch (design){
+            case 0:{
+                answer = "Фотограм";
+                break;
+            }
+            case 1: {
+                answer = String.valueOf(currentPhoto) + " из " + String.valueOf(quantityPhoto);
+                break;
+            }
+            case 2: {
+                answer = String.valueOf(selectPhoto) + " из " + String.valueOf(quantityPhoto);
+                break;
+            }
+
         }
+        return answer;
     }
 
     private void setViewButton(){
@@ -102,7 +143,7 @@ public class MyToolbar extends RelativeLayout {
         if(design == 0){
             return isDarkColor?R.mipmap.ic_menu_black_48dp:R.mipmap.ic_menu_black_48dp;
         }else{
-            return isDarkColor?R.mipmap.ic_launcher_round:R.mipmap.ic_launcher_round;
+            return isDarkColor?R.mipmap.ic_arrow_back_white_48dp:R.mipmap.ic_arrow_back_black_48dp;
         }
     }
 
@@ -111,9 +152,39 @@ public class MyToolbar extends RelativeLayout {
         setBackgroundColor(getResources().getColor(!isDarkColor ? R.color.color_white : R.color.color_dark_toolbar));
         title.setTextColor(getResources().getColor(isDarkColor ? R.color.color_white : R.color.color_grey_fonts));
         setViewButton();
-
     }
 
+    public MyToolbar setQuantityPhoto(int quantityPhoto){
+        this.quantityPhoto = quantityPhoto;
+        updateTitle();
+        return this;
+    }
 
+    public MyToolbar setSelectPhoto(int selectPhoto){
+        this.selectPhoto = selectPhoto;
+        updateTitle();
+        return this;
+    }
+
+    public int getSelectPhoto() {
+        return selectPhoto;
+    }
+
+    public MyToolbar showSelectToolbar(){
+        design = 2;
+        rightBut = (ImageView) rootView.findViewById(R.id.right_but);
+        rightBut.setVisibility(VISIBLE);
+        leftBut.setImageResource(R.mipmap.ic_arrow_back_black_48dp);
+        setListeners();
+        return this;
+    }
+
+    public MyToolbar showMainToolbar(){
+        design = 0;
+        updateTitle();
+        rightBut.setVisibility(GONE);
+        leftBut.setImageResource(R.mipmap.ic_menu_black_48dp);
+        return this;
+    }
 
 }
